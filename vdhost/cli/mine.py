@@ -19,12 +19,12 @@ def mine():
 
         if os.path.exists(mining_path):
             subprocess.call("chmod +x " + mining_path, shell=True)
-            p = subprocess.Popen(mining_path)
+            process = subprocess.Popen(mining_path)
 
             # write pid to file
-            f = open(pid_path, 'w')
-            f.write(str(p.pid))
-            f.close()
+            pid_file = open(pid_path, 'w')
+            pid_file.write(str(process.pid))
+            pid_file.close()
 
         else:
             print("Please run " + stylize("vdhost setcommands", fg("blue")) + " before trying to mine.")

@@ -39,19 +39,19 @@ def setcommands():
             commands.append(cmd)
 
         # Save commands to mining file
-        mine_file = mining_folder + '/mine.sh'
-        f = open(mine_file, 'w+')
-        f.write("#!/usr/bin/env bash\n")
+        mine_file_path = mining_folder + '/mine.sh'
+        mine_file = open(mine_file_path, 'w+')
+        mine_file.write("#!/usr/bin/env bash\n")
         for cmd in commands:
-            f.write(cmd)
-            f.write('\n')
-        f.close()
+            mine_file.write(cmd)
+            mine_file.write('\n')
+        mine_file.close()
 
         # Mining process is NOT running, so give pid file a value of -1
-        pid_file = mining_folder + '/pid'
-        f = open(pid_file, 'w+')
-        f.write('-1')
-        f.close()
+        pid_file_path = mining_folder + '/pid'
+        pid_file = open(pid_file_path, 'w+')
+        pid_file.write('-1')
+        pid_file.close()
 
-    except Exception as e:
-        print(stylize("The following error was thrown: ", fg("red")) + str(e))
+    except Exception as err:
+        print(stylize("The following error was thrown: ", fg("red")) + str(err))

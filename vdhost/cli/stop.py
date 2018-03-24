@@ -18,26 +18,26 @@ def stop():
         pid_path = os.path.expanduser('~/.vectordash/mining/pid')
 
         if os.path.exists(pid_path):
-            f = open(pid_path, 'r')
-            p = f.read()
-            f.close()
+            pid_file = open(pid_path, 'r')
+            pid = pid_file.read()
+            pid_file.close()
 
-            if int(p) < 0:
+            if int(pid) < 0:
                 print("Not currently mining. Run " + stylize("vdhost mine", fg("blue")) + " to start mining")
                 return
 
             # kill the process with process id pid
-            subprocess.call("kill -- -$(ps -o pgid= " + p + " | grep -o [0-9]*)", shell=True)
+            subprocess.call("kill -- -$(ps -o pgid= " + pid + " | grep -o [0-9]*)", shell=True)
             # subprocess.call("kill " + p, shell=True)
 
-            while pid_exists(p):
+            while pid_exists(pid):
                 print("Attempting to force kill subprocess")
-                subprocess.call("kill -9 -p " + p, shell=True)
+                subprocess.call("kill -9 -p " + pid, shell=True)
 
             # write -1 to pid file
-            f = open(pid_path, 'w')
-            f.write("-1")
-            f.close()
+            pid_file = open(pid_path, 'w')
+            pid_file.write("-1")
+            pid_file.close()
 
         else:
             print("Please run " + stylize("vdhost mine", fg("blue")) + " before trying to stop mining.")
